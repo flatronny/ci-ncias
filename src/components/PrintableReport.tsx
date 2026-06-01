@@ -136,8 +136,8 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
         {course.id === 'licenciatura' && (
-          <p className="text-xs text-gray-600 mt-3 italic">
-            * Nota: O curso já possui o Conceito ENADE relativo a 2025 divulgado (vide Histórico). As demais notas (IDD, CPC) deste ciclo ainda não estão publicadas. Os resultados acima refletem o ciclo consolidado mais recente (2021-2023).
+          <p className="text-[10px] text-gray-600 mt-2 italic leading-relaxed">
+            * Nota: Os conceitos das licenciaturas tiveram alterações, porém as notas demonstradas no Resultado SINAES e Detalhamento do CPC seguem as diretrizes do ciclo passado ainda. O curso já possui o Conceito ENADE relativo a 2025 divulgado (vide Histórico). As demais notas (IDD, CPC) deste ciclo ainda não estão publicadas. Os resultados acima refletem o ciclo consolidado mais recente (2021-2023).
           </p>
         )}
       </section>

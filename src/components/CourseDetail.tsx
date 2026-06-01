@@ -151,7 +151,7 @@ export function CourseDetail({ course }: Props) {
                  <>
                    <br />
                    <span className="inline-block mt-2 font-medium text-[#003366]">
-                     * Nota: O curso já possui o Conceito ENADE relativo a 2025 divulgado (no histórico abaixo). As demais notas métricas (IDD, CPC) referentes ao ciclo de 2025 ainda não foram publicadas. Os resultados detalhados refletem o último ciclo consolidado (2021-2023).
+                     * Nota: Os conceitos das licenciaturas tiveram alterações, porém as notas demonstradas no Resultado SINAES e Detalhamento do CPC seguem as diretrizes do ciclo passado ainda. O curso já possui o Conceito ENADE relativo a 2025 divulgado (no histórico abaixo). As demais notas métricas (IDD, CPC) referentes ao ciclo de 2025 ainda não foram publicadas. Os resultados detalhados refletem o último ciclo consolidado (2021-2023).
                    </span>
                  </>
                )}
