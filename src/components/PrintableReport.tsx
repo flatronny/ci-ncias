@@ -83,7 +83,7 @@ export function PrintableReport({ course }: Props) {
   };
 
   return (
-    <div className="bg-white text-gray-800 max-w-[21cm] mx-auto min-h-[29.7cm] shadow-xl my-8 print:shadow-none print:my-0 print:max-w-full font-sans print:border-none border border-gray-200">
+    <div className="bg-white text-gray-800 max-w-[21cm] mx-auto min-h-[29.7cm] shadow-xl my-8 print:shadow-none print:my-0 print:max-w-full font-sans print:border-none border border-gray-200 print:block">
       
       {/* ======================================= */}
       {/*                PÁGINA 1                 */}

@@ -42,7 +42,7 @@
 @media print {
   @page { margin: 0; size: A4 portrait; }
   
-  body, #root, main, .min-h-screen { 
+  html, body, #root, main, .min-h-screen { 
     display: block !important; 
     margin: 0 !important; 
     padding: 0 !important; 
@@ -52,6 +52,7 @@
   }
   
   .pagina-relatorio { 
+    display: block !important;
     page-break-after: always !important; 
     break-after: page !important; 
     min-height: 297mm !important;
@@ -60,7 +61,6 @@
     margin: 0 !important;
     padding: 1cm !important;
     position: relative !important;
-    display: block !important;
   }
 
   .avoid-break {
@@ -68,6 +68,8 @@
     break-inside: avoid !important;
     display: block !important;
     position: relative !important;
+    break-before: auto !important;
+    break-after: auto !important;
   }
 
   * {
