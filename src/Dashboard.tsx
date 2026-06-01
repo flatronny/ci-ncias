@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { coursesData } from './data';
 import { CourseLevel } from './types';
 import { CourseDetail } from './components/CourseDetail';
@@ -8,6 +8,15 @@ import { Printer, ArrowLeft } from 'lucide-react';
 export default function Dashboard() {
   const [selectedLevel, setSelectedLevel] = useState<CourseLevel>('licenciatura');
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+
+  useEffect(() => {
+    if (isPreviewMode) {
+      const timer = setTimeout(() => {
+        window.print();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isPreviewMode]);
 
   if (isPreviewMode) {
     return (
@@ -49,6 +58,9 @@ export default function Dashboard() {
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900">
                   {coursesData[selectedLevel].name} <span className="text-gray-400 font-medium">| UEMS Paranaíba</span>
                 </h1>
+                <p className="text-sm text-gray-500 mt-1 text-balance">
+                  Código do Curso (INEP): <strong className="text-gray-700">{coursesData[selectedLevel].codigo}</strong> &bull; Painel analítico de indicadores (SINAES 2021-2023, Vagas e Matrículas 2025).
+                </p>
               </div>
               
               <div className="flex flex-col sm:flex-row items-center gap-3 self-start sm:self-auto">

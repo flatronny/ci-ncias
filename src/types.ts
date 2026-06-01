@@ -47,6 +47,7 @@ export interface CourseData {
   duracao: string;
   vagas: Vagas;
   students: StudentStats;
+  history: { year: number; students: StudentStats }[];
   enadeHistory: EnadeHistory[];
   enade: {
     enade: SinaesScore;

@@ -64,6 +64,21 @@ export function CourseDetail({ course }: Props) {
     );
   };
 
+  const historyChartData = course.history.map((item, index) => {
+    let evasao = 0;
+    if (index > 0) {
+      const prev = course.history[index - 1].students;
+      evasao = Math.max(0, (prev.matriculados - prev.concluintes) + item.students.ingressantes - item.students.matriculados);
+    }
+    return {
+      year: item.year,
+      Ingressantes: item.students.ingressantes,
+      Matriculados: item.students.matriculados,
+      Concluintes: item.students.concluintes,
+      Evasão: index > 0 ? evasao : 0,
+    };
+  });
+
   return (
     <div className="space-y-6">
       {/* Top Metrics Row */}
@@ -120,7 +135,7 @@ export function CourseDetail({ course }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Resultados Consolidados SINAES</CardTitle>
+            <CardTitle>Resultados Consolidados SINAES (Ciclo 2021-2023)</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -128,17 +143,25 @@ export function CourseDetail({ course }: Props) {
                {renderSinaesIndicator('IDD', course.enade.idd)}
                {renderSinaesIndicator('CPC', course.enade.cpc)}
              </div>
-             <p className="text-xs text-gray-500 mt-4 leading-relaxed">
+              <p className="text-xs text-gray-500 mt-4 leading-relaxed">
                <strong>ENADE:</strong> Avalia o rendimento dos concluintes. 
                <strong> IDD:</strong> Mede o "valor agregado" pelo curso ao aluno. 
                <strong> CPC:</strong> Conceito Preliminar de Curso.
+               {course.id === 'licenciatura' && (
+                 <>
+                   <br />
+                   <span className="inline-block mt-2 font-medium text-[#003366]">
+                     * Nota: O curso já possui o Conceito ENADE relativo a 2025 divulgado (no histórico abaixo). As demais notas métricas (IDD, CPC) referentes ao ciclo de 2025 ainda não foram publicadas. Os resultados detalhados refletem o último ciclo consolidado (2021-2023).
+                   </span>
+                 </>
+               )}
              </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Forma de Ingresso (Série)</CardTitle>
+            <CardTitle>Forma de Ingresso (Série - 2025)</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center min-h-[220px]">
             {ingressosData.length > 0 ? (
@@ -171,7 +194,7 @@ export function CourseDetail({ course }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
          <Card>
           <CardHeader>
-            <CardTitle>Distribuição de Vagas por Cota e Modalidade</CardTitle>
+            <CardTitle>Distribuição de Vagas por Cota e Modalidade (2025)</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="h-[300px] w-full mt-4">
@@ -192,7 +215,7 @@ export function CourseDetail({ course }: Props) {
         
         <Card>
           <CardHeader>
-            <CardTitle>Matriculados por Série</CardTitle>
+            <CardTitle>Matriculados por Série (2025)</CardTitle>
           </CardHeader>
           <CardContent>
              <div className="h-[300px] w-full mt-4">
@@ -237,6 +260,32 @@ export function CourseDetail({ course }: Props) {
           </CardContent>
         </Card>
       </div>
+      {/* New Row for Historico Matriculas */}
+      <div className="grid grid-cols-1 gap-6 mt-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Histórico do Curso</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[350px] w-full mt-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={historyChartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                  <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 13}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 13}} />
+                  <RechartsTooltip cursor={{fill: '#F3F4F6'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+                  <Legend wrapperStyle={{paddingTop: '20px'}} />
+                  <Bar dataKey="Ingressantes" fill="#0284c7" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Matriculados" fill="#10b981" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Concluintes" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Evasão" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
     </div>
   );
 }
