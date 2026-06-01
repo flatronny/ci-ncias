@@ -335,7 +335,7 @@ export function PrintableReport({ course }: Props) {
         </h3>
         
         {course.enadeHistory.length > 0 ? (
-          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md">
+          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto">
             <table className="w-full text-center text-sm border-collapse">
               <thead>
                 <tr className="bg-gray-100 text-gray-800 font-semibold">
