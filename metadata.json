@@ -1,0 +1,8 @@
+{
+  "name": "Raio-X Ciências Sociais SINAES",
+  "description": "Painel comparativo de dados acadêmicos e notas SINAES (ENADE, IDD, CPC) para os cursos de Ciências Sociais da UEMS Paranaíba.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
