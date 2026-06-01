@@ -83,9 +83,14 @@ export function PrintableReport({ course }: Props) {
   };
 
   return (
-    <div className="bg-white text-gray-800 p-8 max-w-[21cm] mx-auto min-h-[29.7cm] shadow-xl my-8 print:shadow-none print:my-0 print:p-[1cm] print:max-w-full font-sans border-t-8 border-t-[#003366] border border-gray-200 print:border-t-[8px] print:border-[#003366] print:border-x-0 print:border-b-0">
+    <div className="bg-white text-gray-800 max-w-[21cm] mx-auto min-h-[29.7cm] shadow-xl my-8 print:shadow-none print:my-0 print:max-w-full font-sans print:border-none border border-gray-200">
       
-      {/* Cabeçalho */}
+      {/* ======================================= */}
+      {/*                PÁGINA 1                 */}
+      {/* ======================================= */}
+      <div className="pagina-relatorio p-8 print:p-[1cm] border-t-8 border-t-[#003366] print:border-t-[8px] print:border-[#003366] print:border-x-0 print:border-b-0 bg-white">
+        
+        {/* Cabeçalho */}
       <div className="text-center mb-8 border-b-2 border-[#003366] pb-6">
         <div className="mb-4 flex justify-center">
           <img src="https://www.uems.br/anexos/imagens/conteudo/uems_imagens_2025-06-13_13-31-53.png" alt="Logo UEMS" className="h-20 mx-auto" />
@@ -117,7 +122,7 @@ export function PrintableReport({ course }: Props) {
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">2</span> 
           Resultados SINAES (Ciclo 2021-2023)
         </h3>
-        <div className="overflow-hidden rounded-lg border border-[#003366]">
+        <div className="overflow-hidden rounded-lg border border-[#003366] avoid-break">
           <table className="w-full text-left text-sm border-collapse">
             <thead>
               <tr className="bg-[#003366] text-white">
@@ -149,7 +154,7 @@ export function PrintableReport({ course }: Props) {
             <span className="bg-[#003366] text-white p-1 px-2 flex items-center justify-center rounded-sm text-xs">2.1</span> 
             Detalhamento do CPC ({course.cpcDetails.ano})
           </h3>
-          <div className="overflow-hidden rounded-lg border border-gray-300">
+          <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
             <table className="w-full text-left text-[11px] border-collapse">
               <thead>
                 <tr className="bg-gray-100 font-semibold text-gray-700">
@@ -235,14 +240,19 @@ export function PrintableReport({ course }: Props) {
           </div>
         </section>
       )}
+      </div> {/* FIM PÁGINA 1 */}
 
+      {/* ======================================= */}
+      {/*                PÁGINA 2                 */}
+      {/* ======================================= */}
+      <div className="pagina-relatorio p-8 print:p-[1cm] bg-white">
       {/* 3. Vagas e Ocupação */}
-      <section className="mb-8 p-1 print:break-before-page">
+      <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">3</span> 
           Distribuição de Vagas (Referência: 2025)
         </h3>
-        <div className="overflow-hidden rounded-lg border border-gray-300">
+        <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
           <table className="w-full text-center text-sm border-collapse">
             <thead>
               <tr className="bg-gray-100 font-semibold text-gray-700">
@@ -316,7 +326,7 @@ export function PrintableReport({ course }: Props) {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-gray-300">
+        <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
           <table className="w-full text-center text-sm border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-800 font-semibold">
@@ -340,7 +350,7 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
 
-        <div className="h-[250px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
+        <div className="h-[250px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2 avoid-break">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={seriesData} margin={{ top: 30, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
@@ -353,14 +363,19 @@ export function PrintableReport({ course }: Props) {
           </ResponsiveContainer>
         </div>
       </section>
+      </div> {/* FIM PÁGINA 2 */}
 
+      {/* ======================================= */}
+      {/*                PÁGINA 3                 */}
+      {/* ======================================= */}
+      <div className="pagina-relatorio p-8 print:p-[1cm] bg-white">
       {/* 5. Histórico do Curso */}
-      <section className="mb-8 p-1 print:break-before-page">
+      <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">5</span> 
           Histórico do Curso
         </h3>
-        <div className="overflow-hidden rounded-lg border border-gray-300">
+        <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
            <table className="w-full text-center text-sm border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-800 font-semibold">
@@ -385,7 +400,7 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
         
-        <div className="h-[320px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
+        <div className="h-[320px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2 avoid-break">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={historyChartData} margin={{ top: 35, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
@@ -417,7 +432,7 @@ export function PrintableReport({ course }: Props) {
         </h3>
         
         {course.enadeHistory.length > 0 ? (
-          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto">
+          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto avoid-break">
             <table className="w-full text-center text-sm border-collapse">
               <thead>
                 <tr className="bg-gray-100 text-gray-800 font-semibold">
@@ -445,7 +460,7 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 7. Legenda e Metodologia */}
-      <section className="mt-10 pt-6 border-t-[3px] border-[#003366] shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200">
+      <section className="mt-10 pt-6 border-t-[3px] border-[#003366] shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200 avoid-break">
         <h3 className="text-xs font-bold mb-3 uppercase tracking-wide text-[#003366] flex items-center gap-2">
           <span className="bg-[#003366] text-white w-4 h-4 flex items-center justify-center rounded-sm text-[10px]">ℹ</span> 
           Documentação de Apoio Metodológico
@@ -481,6 +496,7 @@ export function PrintableReport({ course }: Props) {
       <footer className="mt-8 text-center text-[10px] text-gray-400 italic">
         Documento gerado automaticamente pelo sistema de Indicadores de Ensino (SINAES/UEMS) para fins institucionais e tomada de decisão.
       </footer>
+      </div> {/* FIM PÁGINA 3 */}
     </div>
   );
 }

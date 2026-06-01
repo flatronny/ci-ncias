@@ -42,12 +42,21 @@
 @media print {
   @page { margin: 0; size: A4 portrait; }
   
-  body { background-color: white !important; margin: 0; padding: 0; }
+  body, #root, main { 
+    display: block !important; 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    background-color: white !important;
+  }
   
-  .page-break { page-break-after: always; }
-  .break-inside-avoid, table, tr, td, th {
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
+  .pagina-relatorio { 
+    page-break-after: always; 
+    break-after: page; 
+  }
+
+  .avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   * {

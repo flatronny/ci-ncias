@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   if (isPreviewMode) {
     return (
-      <div className="min-h-screen bg-gray-200 py-8 font-sans selection:bg-blue-100 selection:text-blue-900">
+      <div className="min-h-screen bg-gray-200 py-8 font-sans selection:bg-blue-100 selection:text-blue-900 print:bg-white print:m-0 print:p-0 print:block">
         <div className="max-w-[21cm] mx-auto mb-4 flex justify-between items-center print:hidden px-4 sm:px-0">
           <button 
             onClick={() => setIsPreviewMode(false)}
@@ -37,10 +37,10 @@ export default function Dashboard() {
             Imprimir / Salvar PDF
           </button>
         </div>
-        <div className="print:break-after-page mb-8 print:mb-0">
+        <div className="print:break-after-page mb-8 print:mb-0 print:block">
           <PrintableReport course={coursesData.bacharelado} />
         </div>
-        <div>
+        <div className="print:block">
           <PrintableReport course={coursesData.licenciatura} />
         </div>
       </div>
