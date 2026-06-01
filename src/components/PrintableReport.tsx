@@ -97,11 +97,11 @@ export function PrintableReport({ course }: Props) {
 
       {/* 1. Identificação */}
       <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">1</span> 
           Identificação do Curso
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-6 text-sm bg-slate-50 p-5 rounded-lg border border-slate-200 shadow-sm print:shadow-none">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-6 text-sm bg-slate-50 p-5 rounded-lg border border-slate-200 shadow-sm print:shadow-none print:break-inside-avoid">
           <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Curso</p><strong className="text-gray-900 text-[15px]">{course.name}</strong></div>
           <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Unidade Acadêmica</p><strong className="text-gray-900 text-[15px]">Paranaíba</strong></div>
           <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Código INEP</p><strong className="text-gray-900">{course.codigo}</strong></div>
@@ -113,11 +113,11 @@ export function PrintableReport({ course }: Props) {
 
       {/* 2. Resultados Consolidados SINAES */}
       <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">2</span> 
           Resultados SINAES (Ciclo 2021-2023)
         </h3>
-        <div className="overflow-hidden rounded-lg border border-[#003366]">
+        <div className="overflow-hidden rounded-lg border border-[#003366] print:break-inside-avoid">
           <table className="w-full text-left text-sm border-collapse">
             <thead>
               <tr className="bg-[#003366] text-white">
@@ -144,12 +144,12 @@ export function PrintableReport({ course }: Props) {
 
       {/* 2.1 Detalhamento do CPC */}
       {course.cpcDetails && (
-        <section className="mb-8 p-1 break-inside-avoid">
-          <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+        <section className="mb-8 p-1">
+          <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
             <span className="bg-[#003366] text-white p-1 px-2 flex items-center justify-center rounded-sm text-xs">2.1</span> 
             Detalhamento do CPC ({course.cpcDetails.ano})
           </h3>
-          <div className="overflow-hidden rounded-lg border border-gray-300">
+          <div className="overflow-hidden rounded-lg border border-gray-300 print:break-inside-avoid">
             <table className="w-full text-left text-[11px] border-collapse">
               <thead>
                 <tr className="bg-gray-100 font-semibold text-gray-700">
@@ -238,11 +238,11 @@ export function PrintableReport({ course }: Props) {
 
       {/* 3. Vagas e Ocupação */}
       <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">3</span> 
           Distribuição de Vagas (Referência: 2025)
         </h3>
-        <div className="overflow-hidden rounded-lg border border-gray-300">
+        <div className="overflow-hidden rounded-lg border border-gray-300 print:break-inside-avoid">
           <table className="w-full text-center text-sm border-collapse">
             <thead>
               <tr className="bg-gray-100 font-semibold text-gray-700">
@@ -284,12 +284,12 @@ export function PrintableReport({ course }: Props) {
 
       {/* 4. Situação Acadêmica */}
       <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">4</span> 
           Situação Acadêmica (Referência: 2025 - Núcleo Ciências Humanas)
         </h3>
         
-        <div className="grid grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-3 gap-6 mb-6 print:break-inside-avoid">
           <div className="border border-blue-200 rounded-lg overflow-hidden shadow-sm print:shadow-none">
             <div className="bg-[#003366] text-white text-center py-1.5 border-b border-blue-200">
               <p className="text-xs font-semibold uppercase tracking-wider">Ingressantes</p>
@@ -355,12 +355,12 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 5. Histórico do Curso */}
-      <section className="mb-8 p-1 break-inside-avoid">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+      <section className="mb-8 p-1">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">5</span> 
           Histórico do Curso
         </h3>
-        <div className="overflow-hidden rounded-lg border border-gray-300">
+        <div className="overflow-hidden rounded-lg border border-gray-300 print:break-inside-avoid">
            <table className="w-full text-center text-sm border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-800 font-semibold">
@@ -385,7 +385,7 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
         
-        <div className="h-[320px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
+        <div className="h-[320px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2 print:break-inside-avoid">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={historyChartData} margin={{ top: 35, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
@@ -410,14 +410,14 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 6. Histórico ENADE */}
-      <section className="mb-8 break-inside-avoid p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+      <section className="mb-8 p-1">
+        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2 break-after-avoid">
           <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">6</span> 
           Evolução do Conceito ENADE
         </h3>
         
         {course.enadeHistory.length > 0 ? (
-          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto">
+          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto print:break-inside-avoid">
             <table className="w-full text-center text-sm border-collapse">
               <thead>
                 <tr className="bg-gray-100 text-gray-800 font-semibold">
@@ -445,7 +445,7 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 7. Legenda e Metodologia */}
-      <section className="mt-10 pt-6 border-t-[3px] border-[#003366] break-inside-avoid shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200">
+      <section className="mt-10 pt-6 border-t-[3px] border-[#003366] shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200 print:break-inside-avoid">
         <h3 className="text-xs font-bold mb-3 uppercase tracking-wide text-[#003366] flex items-center gap-2">
           <span className="bg-[#003366] text-white w-4 h-4 flex items-center justify-center rounded-sm text-[10px]">ℹ</span> 
           Documentação de Apoio Metodológico
