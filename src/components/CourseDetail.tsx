@@ -156,6 +156,95 @@ export function CourseDetail({ course }: Props) {
                  </>
                )}
              </p>
+             {course.cpcDetails && (
+               <div className="mt-6 pt-6 border-t border-gray-200">
+                 <h4 className="text-sm font-semibold text-gray-900 mb-4">Detalhamento do CPC ({course.cpcDetails.ano})</h4>
+                 <div className="overflow-x-auto">
+                   <table className="w-full text-left text-sm border-collapse">
+                     <thead>
+                       <tr className="bg-gray-100 font-semibold text-gray-700">
+                         <th className="p-2 border-b border-gray-200">Indicador</th>
+                         <th className="p-2 border-b border-gray-200 text-center">Nota Bruta</th>
+                         <th className="p-2 border-b border-gray-200 text-center">Nota Padronizada</th>
+                       </tr>
+                     </thead>
+                     <tbody className="text-gray-700">
+                       <tr className="border-b border-gray-100">
+                         <td className="p-2">Formação Geral (FG)</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaFG.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaFG.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100 bg-gray-50">
+                         <td className="p-2">Componente Específico (CE)</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaCE.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaCE.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100">
+                         <td className="p-2">Conceito ENADE (Contínuo)</td>
+                         <td className="p-2 text-center font-mono bg-blue-50 text-blue-800 font-semibold" colSpan={2}>{course.cpcDetails.conceitoEnadeContinuo.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100 bg-gray-50">
+                         <td className="p-2">IDD</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaIDD.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaIDD.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100">
+                         <td className="p-2">Mestres</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaMestres.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaMestres.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100 bg-gray-50">
+                         <td className="p-2">Doutores</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaDoutores.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaDoutores.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100">
+                         <td className="p-2">Regime de Trabalho</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaRegimeTrabalho.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaRegimeTrabalho.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100 bg-gray-50">
+                         <td className="p-2">Organização Didático-Pedagógica</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaOrganizacao.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaOrganizacao.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100">
+                         <td className="p-2">Infraestrutura e Instalações Físicas</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaInfraestrutura.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaInfraestrutura.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="border-b border-gray-100 bg-gray-50">
+                         <td className="p-2">Oportunidade de Ampliação da Formação</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaBrutaOportunidade.toFixed(3).replace('.', ',')}</td>
+                         <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaOportunidade.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                       <tr className="bg-blue-50 border-t-2 border-[#003366]">
+                         <td className="p-2 font-bold text-[#003366]">CPC (Contínuo)</td>
+                         <td className="p-2 text-center font-bold font-mono text-[#003366]" colSpan={2}>{course.cpcDetails.cpcContinuo.toFixed(3).replace('.', ',')}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                    <div className="p-3 bg-gray-50 rounded border border-gray-200">
+                      <p className="text-xs text-gray-500 font-semibold uppercase">Concluintes Inscritos</p>
+                      <p className="text-xl font-bold text-gray-900">{course.cpcDetails.concluintesInscritos}</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded border border-gray-200">
+                      <p className="text-xs text-gray-500 font-semibold uppercase">Concluintes Participantes</p>
+                      <p className="text-xl font-bold text-gray-900">{course.cpcDetails.concluintesParticipantes}</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded border border-gray-200">
+                      <p className="text-xs text-gray-500 font-semibold uppercase">Participantes c/ Nota ENEM</p>
+                      <p className="text-xl font-bold text-gray-900">{course.cpcDetails.concluintesParticipantesNotaEnem}</p>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded border border-gray-200">
+                      <p className="text-xs text-gray-500 font-semibold uppercase">Proporção ENADE/ENEM</p>
+                      <p className="text-xl font-bold text-gray-900">{(course.cpcDetails.proporcaoConcluintesNotaEnem * 100).toFixed(0)}%</p>
+                    </div>
+                 </div>
+               </div>
+             )}
           </CardContent>
         </Card>
 

@@ -9,9 +9,6 @@ import {
   Legend,
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
   LabelList
 } from 'recharts';
 
@@ -44,15 +41,6 @@ export function PrintableReport({ course }: Props) {
       EvasãoPct: index > 0 ? `${evasaoPctNum}%` : "",
     };
   });
-
-  const ingressosData = [
-    { name: 'SISU', value: course.students.ingresso.sisu },
-    { name: 'PSS', value: course.students.ingresso.pss },
-    { name: 'Vestibular', value: course.students.ingresso.vestibular },
-    { name: 'Outros', value: course.students.ingresso.outros },
-  ].filter(d => d.value > 0);
-
-  const COLORS = ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#9333ea', '#475569'];
 
   const getConceitoLabel = (conceito: number) => {
     switch(conceito) {
@@ -153,6 +141,100 @@ export function PrintableReport({ course }: Props) {
           </p>
         )}
       </section>
+
+      {/* 2.1 Detalhamento do CPC */}
+      {course.cpcDetails && (
+        <section className="mb-8 p-1 break-inside-avoid">
+          <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+            <span className="bg-[#003366] text-white p-1 px-2 flex items-center justify-center rounded-sm text-xs">2.1</span> 
+            Detalhamento do CPC ({course.cpcDetails.ano})
+          </h3>
+          <div className="overflow-hidden rounded-lg border border-gray-300">
+            <table className="w-full text-left text-[11px] border-collapse">
+              <thead>
+                <tr className="bg-gray-100 font-semibold text-gray-700">
+                  <th className="p-2 border-b border-r border-gray-300">Indicador</th>
+                  <th className="p-2 border-b border-r border-gray-300 text-center">Nota Bruta</th>
+                  <th className="p-2 border-b border-gray-300 text-center">Nota Padronizada</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700">
+                <tr className="border-b border-gray-200">
+                  <td className="p-2 border-r border-gray-200">Formação Geral (FG)</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaFG.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaFG.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <td className="p-2 border-r border-gray-200">Componente Específico (CE)</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaCE.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaCE.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200">
+                  <td className="p-2 border-r border-gray-200">Conceito ENADE (Contínuo)</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono bg-blue-50" colSpan={2}>{course.cpcDetails.conceitoEnadeContinuo.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <td className="p-2 border-r border-gray-200">IDD</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaIDD.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaIDD.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200">
+                  <td className="p-2 border-r border-gray-200">Mestres</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaMestres.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaMestres.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <td className="p-2 border-r border-gray-200">Doutores</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaDoutores.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaDoutores.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200">
+                  <td className="p-2 border-r border-gray-200">Regime de Trabalho</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaRegimeTrabalho.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaRegimeTrabalho.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <td className="p-2 border-r border-gray-200">Organização Didático-Pedagógica</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaOrganizacao.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaOrganizacao.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200">
+                  <td className="p-2 border-r border-gray-200">Infraestrutura e Instalações Físicas</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaInfraestrutura.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaInfraestrutura.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <td className="p-2 border-r border-gray-200">Oportunidade de Ampliação da Formação</td>
+                  <td className="p-2 border-r border-gray-200 text-center font-mono">{course.cpcDetails.notaBrutaOportunidade.toFixed(3).replace('.', ',')}</td>
+                  <td className="p-2 text-center font-mono">{course.cpcDetails.notaPadronizadaOportunidade.toFixed(3).replace('.', ',')}</td>
+                </tr>
+                <tr className="border-b border-[#003366] bg-[#e6f0fa]">
+                  <td className="p-2 border-r border-gray-300 font-bold text-[#003366]">CPC (Contínuo)</td>
+                  <td className="p-2 text-center font-bold font-mono text-[#003366]" colSpan={2}>{course.cpcDetails.cpcContinuo.toFixed(3).replace('.', ',')}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 mb-2">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200 text-center">
+               <p className="text-[10px] uppercase text-slate-500 font-semibold">Concluintes Inscritos</p>
+               <p className="text-lg font-bold text-slate-800">{course.cpcDetails.concluintesInscritos}</p>
+            </div>
+            <div className="bg-slate-50 p-3 rounded border border-slate-200 text-center">
+               <p className="text-[10px] uppercase text-slate-500 font-semibold">Concluintes Participantes</p>
+               <p className="text-lg font-bold text-slate-800">{course.cpcDetails.concluintesParticipantes}</p>
+            </div>
+            <div className="bg-slate-50 p-3 rounded border border-slate-200 text-center">
+               <p className="text-[10px] uppercase text-slate-500 font-semibold">Participantes c/ Nota ENEM</p>
+               <p className="text-lg font-bold text-slate-800">{course.cpcDetails.concluintesParticipantesNotaEnem}</p>
+            </div>
+            <div className="bg-slate-50 p-3 rounded border border-slate-200 text-center">
+               <p className="text-[10px] uppercase text-slate-500 font-semibold">Proporção ENADE/ENEM</p>
+               <p className="text-lg font-bold text-slate-800">{(course.cpcDetails.proporcaoConcluintesNotaEnem * 100).toFixed(0)}%</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 3. Vagas e Ocupação */}
       <section className="mb-8 p-1">
@@ -258,9 +340,9 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
 
-        <div className="h-[200px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
+        <div className="h-[250px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={seriesData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <BarChart data={seriesData} margin={{ top: 30, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
               <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
               <YAxis axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
@@ -303,23 +385,23 @@ export function PrintableReport({ course }: Props) {
           </table>
         </div>
         
-        <div className="h-[220px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
+        <div className="h-[320px] w-full mt-4 bg-white border border-gray-200 rounded-lg p-2">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={historyChartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <BarChart data={historyChartData} margin={{ top: 35, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
               <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
               <YAxis axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 11}} />
-              <Legend wrapperStyle={{fontSize: '11px'}} />
-              <Bar dataKey="Ingressantes" fill="#e4e4e7" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]}>
+              <Legend wrapperStyle={{fontSize: '11px', paddingTop: '10px'}} />
+              <Bar dataKey="Ingressantes" fill="#e4e4e7" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]} maxBarSize={40}>
                 <LabelList dataKey="Ingressantes" position="top" style={{ fontSize: '9px', fill: '#171717' }} />
               </Bar>
-              <Bar dataKey="Matriculados" fill="#a1a1aa" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]}>
+              <Bar dataKey="Matriculados" fill="#a1a1aa" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]} maxBarSize={40}>
                 <LabelList dataKey="Matriculados" position="top" style={{ fontSize: '9px', fill: '#171717' }} />
               </Bar>
-              <Bar dataKey="Concluintes" fill="#52525b" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]}>
+              <Bar dataKey="Concluintes" fill="#52525b" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]} maxBarSize={40}>
                 <LabelList dataKey="Concluintes" position="top" style={{ fontSize: '9px', fill: '#171717' }} />
               </Bar>
-              <Bar dataKey="Evasão" fill="#09090b" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]}>
+              <Bar dataKey="Evasão" fill="#09090b" stroke="#18181b" strokeWidth={1} isAnimationActive={false} radius={[2, 2, 0, 0]} maxBarSize={40}>
                 <LabelList dataKey="EvasãoPct" position="top" style={{ fontSize: '9px', fill: '#171717' }} />
               </Bar>
             </BarChart>

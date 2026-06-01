@@ -39,6 +39,35 @@ export interface EnadeHistory {
   conceito: number;
 }
 
+export interface CpcDetails {
+  ano: number;
+  concluintesInscritos: number;
+  concluintesParticipantes: number;
+  notaBrutaFG: number;
+  notaPadronizadaFG: number;
+  notaBrutaCE: number;
+  notaPadronizadaCE: number;
+  conceitoEnadeContinuo: number;
+  concluintesParticipantesNotaEnem: number;
+  proporcaoConcluintesNotaEnem: number;
+  notaBrutaIDD: number;
+  notaPadronizadaIDD: number;
+  notaBrutaOrganizacao: number;
+  notaPadronizadaOrganizacao: number;
+  notaBrutaInfraestrutura: number;
+  notaPadronizadaInfraestrutura: number;
+  notaBrutaOportunidade: number;
+  notaPadronizadaOportunidade: number;
+  notaBrutaMestres: number;
+  notaPadronizadaMestres: number;
+  notaBrutaDoutores: number;
+  notaPadronizadaDoutores: number;
+  notaBrutaRegimeTrabalho: number;
+  notaPadronizadaRegimeTrabalho: number;
+  cpcContinuo: number;
+  cpcFaixa: number;
+}
+
 export interface CourseData {
   id: CourseLevel;
   name: string;
@@ -54,4 +83,5 @@ export interface CourseData {
     idd: SinaesScore;
     cpc: SinaesScore;
   };
+  cpcDetails?: CpcDetails;
 }
