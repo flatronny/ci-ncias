@@ -1,4 +1,4 @@
-export type CourseLevel = 'bacharelado' | 'licenciatura';
+export type CourseLevel = 'bacharelado' | 'licenciatura' | 'engenharia_fisica';
 
 export interface VagasDetails {
   ampla: number;
@@ -78,7 +78,8 @@ export interface CourseData {
   students: StudentStats;
   history: { year: number; students: StudentStats }[];
   enadeHistory: EnadeHistory[];
-  enade: {
+  hasSinaes?: boolean;
+  enade?: {
     enade: SinaesScore;
     idd: SinaesScore;
     cpc: SinaesScore;

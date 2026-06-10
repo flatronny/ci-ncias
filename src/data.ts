@@ -1,6 +1,6 @@
-import { CourseData } from './types';
+import { CourseData, CourseLevel } from './types';
 
-export const coursesData: Record<'bacharelado' | 'licenciatura', CourseData> = {
+export const coursesData: Record<CourseLevel, CourseData> = {
   bacharelado: {
     id: 'bacharelado',
     name: 'Ciências Sociais (Bacharelado)',
@@ -32,6 +32,7 @@ export const coursesData: Record<'bacharelado' | 'licenciatura', CourseData> = {
     enadeHistory: [
       { year: 2021, conceito: 1 }
     ],
+    hasSinaes: true,
     enade: {
       enade: { nota: 0.788, conceito: 1, mediaNacional: 2.680 },
       idd: { nota: 2.978, conceito: 4, mediaNacional: 2.970 },
@@ -100,6 +101,7 @@ export const coursesData: Record<'bacharelado' | 'licenciatura', CourseData> = {
       { year: 2021, conceito: 3 },
       { year: 2025, conceito: 4 }
     ],
+    hasSinaes: true,
     enade: {
       enade: { nota: 2.598, conceito: 3, mediaNacional: 2.680 },
       idd: { nota: 3.101, conceito: 4, mediaNacional: 2.970 },
@@ -132,6 +134,72 @@ export const coursesData: Record<'bacharelado' | 'licenciatura', CourseData> = {
       notaPadronizadaRegimeTrabalho: 0.952,
       cpcContinuo: 2.991,
       cpcFaixa: 4
+    }
+  },
+  engenharia_fisica: {
+    id: 'engenharia_fisica',
+    name: 'Engenharia Física',
+    codigo: '150103',
+    turno: 'Integral',
+    duracao: '5 anos',
+    vagas: {
+      vestibular: { ampla: 8, negros: 3, indigenas: 2, res_ms: 2, pcd: 1, total: 16 },
+      sisu: { ampla: 9, negros: 3, indigenas: 1, res_ms: 0, pcd: 1, total: 14 },
+      totalGeral: 30
+    },
+    students: {
+      ingressantes: 8,
+      matriculados: 57,
+      concluintes: 10,
+      series: [16, 2, 8, 11, 20, 0],
+      ingresso: { vestibular: 0, sisu: 0, pss: 5, outros: 3 }
+    },
+    history: [
+      { year: 2018, students: { ingressantes: 44, matriculados: 137, concluintes: 12, series: [56, 17, 21, 8, 35, 0], ingresso: { vestibular: 0, sisu: 27, pss: 20, outros: 0 } } },
+      { year: 2019, students: { ingressantes: 30, matriculados: 133, concluintes: 11, series: [52, 22, 23, 10, 26, 0], ingresso: { vestibular: 0, sisu: 17, pss: 13, outros: 1 } } },
+      { year: 2020, students: { ingressantes: 26, matriculados: 119, concluintes: 6, series: [40, 24, 21, 9, 25, 0], ingresso: { vestibular: 0, sisu: 21, pss: 11, outros: 0 } } },
+      { year: 2021, students: { ingressantes: 13, matriculados: 103, concluintes: 7, series: [28, 17, 16, 15, 27, 0], ingresso: { vestibular: 6, sisu: 0, pss: 5, outros: 2 } } },
+      { year: 2022, students: { ingressantes: 15, matriculados: 92, concluintes: 4, series: [27, 8, 17, 9, 31, 0], ingresso: { vestibular: 1, sisu: 8, pss: 6, outros: 2 } } },
+      { year: 2023, students: { ingressantes: 10, matriculados: 72, concluintes: 11, series: [12, 13, 8, 10, 29, 0], ingresso: { vestibular: 3, sisu: 1, pss: 7, outros: 0 } } },
+      { year: 2024, students: { ingressantes: 14, matriculados: 67, concluintes: 10, series: [16, 9, 11, 7, 24, 0], ingresso: { vestibular: 0, sisu: 4, pss: 10, outros: 0 } } },
+      { year: 2025, students: { ingressantes: 8, matriculados: 57, concluintes: 10, series: [16, 2, 8, 11, 20, 0], ingresso: { vestibular: 0, sisu: 0, pss: 5, outros: 3 } } }
+    ],
+    enadeHistory: [
+      { year: 2017, conceito: 3 }
+    ],
+    hasSinaes: true,
+    enade: {
+      enade: { nota: 2.046, conceito: 3, mediaNacional: 0 },
+      idd: { nota: 2.273, conceito: 3, mediaNacional: 0 },
+      cpc: { nota: 2.705, conceito: 3, mediaNacional: 0 }
+    },
+    cpcDetails: {
+      ano: 2017,
+      concluintesInscritos: 36,
+      concluintesParticipantes: 32,
+      concluintesParticipantesNotaEnem: 31,
+      proporcaoConcluintesNotaEnem: 0.9688,
+      notaBrutaFG: 51.675,
+      notaPadronizadaFG: 0,
+      notaBrutaCE: 36.9969,
+      notaPadronizadaCE: 0,
+      conceitoEnadeContinuo: 2.0461,
+      notaBrutaIDD: -0.5333,
+      notaPadronizadaIDD: 2.2732,
+      notaBrutaMestres: 4.6271,
+      notaPadronizadaMestres: 2.4817,
+      notaBrutaDoutores: 4.0938,
+      notaPadronizadaDoutores: 1.7433,
+      notaBrutaRegimeTrabalho: 4.3504,
+      notaPadronizadaRegimeTrabalho: 2.7359,
+      notaBrutaOrganizacao: 4.17,
+      notaPadronizadaOrganizacao: 0.7308,
+      notaBrutaInfraestrutura: 3.6538,
+      notaPadronizadaInfraestrutura: 0.8462,
+      notaBrutaOportunidade: 3.9744,
+      notaPadronizadaOportunidade: 0,
+      cpcContinuo: 2.7054,
+      cpcFaixa: 3
     }
   }
 };

@@ -64,6 +64,7 @@ export function PrintableReport({ course }: Props) {
   const renderSinaesRow = (label: string, data: any) => {
     const isAbove = data.nota > data.mediaNacional;
     const diff = Math.abs(data.nota - data.mediaNacional);
+    const hasMediaNacional = data.mediaNacional > 0;
     return (
       <tr className="border-b border-gray-200 even:bg-gray-50">
         <td className="p-3 font-semibold text-gray-800">{label}</td>
@@ -71,12 +72,20 @@ export function PrintableReport({ course }: Props) {
         <td className={`p-3 font-semibold ${getTextColor(data.conceito)}`}>
           {getConceitoLabel(data.conceito)}
         </td>
-        <td className="p-3 text-center text-gray-700">{data.mediaNacional.toFixed(3).replace('.', ',')}</td>
+        <td className="p-3 text-center text-gray-700">
+          {hasMediaNacional ? data.mediaNacional.toFixed(3).replace('.', ',') : <span className="text-gray-400">-</span>}
+        </td>
         <td className="p-3 text-right">
-          <span className={`font-medium ${isAbove ? 'text-blue-600' : 'text-red-600'}`}>
-            {isAbove ? 'Acima da Média ' : 'Abaixo da Média '}
-            ({isAbove ? '↑' : '↓'} {diff.toFixed(2).replace('.', ',')})
-          </span>
+          {hasMediaNacional ? (
+             <span className={`font-medium ${isAbove ? 'text-blue-600' : 'text-red-600'}`}>
+               {isAbove ? 'Acima da Média ' : 'Abaixo da Média '}
+               ({isAbove ? '↑' : '↓'} {diff.toFixed(2).replace('.', ',')})
+             </span>
+          ) : (
+             <span className="font-medium text-gray-400 text-[11px] block text-center pr-2">
+               Não disponível
+             </span>
+          )}
         </td>
       </tr>
     );
@@ -108,7 +117,7 @@ export function PrintableReport({ course }: Props) {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-6 text-sm bg-slate-50 p-5 rounded-lg border border-slate-200 shadow-sm print:shadow-none">
           <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Curso</p><strong className="text-gray-900 text-[15px]">{course.name}</strong></div>
-          <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Unidade Acadêmica</p><strong className="text-gray-900 text-[15px]">Paranaíba</strong></div>
+          <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Unidade Acadêmica</p><strong className="text-gray-900 text-[15px]">{course.id === 'engenharia_fisica' ? 'Dourados' : 'Paranaíba'}</strong></div>
           <div className="border-b border-gray-200 pb-2"><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Código INEP</p><strong className="text-gray-900">{course.codigo}</strong></div>
           <div><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Turno</p><strong className="text-gray-900">{course.turno}</strong></div>
           <div><p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">Duração</p><strong className="text-gray-900">{course.duracao}</strong></div>
@@ -117,38 +126,45 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 2. Resultados Consolidados SINAES */}
-      <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">2</span> 
-          Resultados SINAES (Ciclo 2021-2023)
-        </h3>
-        <div className="overflow-hidden rounded-lg border border-[#003366] avoid-break">
-          <table className="w-full text-left text-sm border-collapse">
-            <thead>
-              <tr className="bg-[#003366] text-white">
-                <th className="p-3 border-b border-[#002244] font-semibold">Indicador</th>
-                <th className="p-3 text-center border-b border-[#002244] font-semibold">Nota Contínua</th>
-                <th className="p-3 border-b border-[#002244] font-semibold">Conceito Final</th>
-                <th className="p-3 text-center border-b border-[#002244] font-semibold">Média Nacional</th>
-                <th className="p-3 border-b border-[#002244] text-right font-semibold">Situação vs. Nacional</th>
-              </tr>
-            </thead>
-            <tbody>
-              {renderSinaesRow('ENADE', course.enade.enade)}
-              {renderSinaesRow('IDD', course.enade.idd)}
-              {renderSinaesRow('CPC', course.enade.cpc)}
-            </tbody>
-          </table>
-        </div>
-        {course.id === 'licenciatura' && (
-          <p className="text-[10px] text-gray-600 mt-2 italic leading-relaxed">
-            * Nota: Os conceitos das licenciaturas tiveram alterações, porém as notas demonstradas no Resultado SINAES e Detalhamento do CPC seguem as diretrizes do ciclo passado ainda. O curso já possui o Conceito ENADE relativo a 2025 divulgado (vide Histórico). As demais notas (IDD, CPC) deste ciclo ainda não estão publicadas. Os resultados acima refletem o ciclo consolidado mais recente (2021-2023).
-          </p>
-        )}
-      </section>
+      {course.hasSinaes !== false && course.enade && (
+        <section className="mb-8 p-1">
+          <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+            <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">2</span> 
+            Resultados SINAES (Referência: {course.cpcDetails?.ano})
+          </h3>
+          <div className="overflow-hidden rounded-lg border border-[#003366] avoid-break">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr className="bg-[#003366] text-white">
+                  <th className="p-3 border-b border-[#002244] font-semibold">Indicador</th>
+                  <th className="p-3 text-center border-b border-[#002244] font-semibold">Nota Contínua</th>
+                  <th className="p-3 border-b border-[#002244] font-semibold">Conceito Final</th>
+                  <th className="p-3 text-center border-b border-[#002244] font-semibold">Média Nacional</th>
+                  <th className="p-3 border-b border-[#002244] text-right font-semibold">Situação vs. Nacional</th>
+                </tr>
+              </thead>
+              <tbody>
+                {renderSinaesRow('ENADE', course.enade.enade)}
+                {renderSinaesRow('IDD', course.enade.idd)}
+                {renderSinaesRow('CPC', course.enade.cpc)}
+              </tbody>
+            </table>
+          </div>
+          {course.cpcDetails && course.cpcDetails.ano < 2021 && (
+            <p className="text-[10px] text-gray-600 mt-2 italic leading-relaxed">
+              * Nota: Para notas de ciclos anteriores a 2021, não é disponibilizada a Média Nacional para fins de comparação.
+            </p>
+          )}
+          {course.id === 'licenciatura' && (
+            <p className="text-[10px] text-gray-600 mt-2 italic leading-relaxed">
+              * Nota: Os conceitos das licenciaturas tiveram alterações, porém as notas demonstradas no Resultado SINAES e Detalhamento do CPC seguem as diretrizes do ciclo passado ainda. O curso já possui o Conceito ENADE relativo a 2025 divulgado (vide Histórico). As demais notas (IDD, CPC) deste ciclo ainda não estão publicadas. Os resultados acima refletem o ciclo consolidado mais recente (2021-2023).
+            </p>
+          )}
+        </section>
+      )}
 
       {/* 2.1 Detalhamento do CPC */}
-      {course.cpcDetails && (
+      {course.hasSinaes !== false && course.cpcDetails && (
         <section className="mb-8 p-1">
           <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
             <span className="bg-[#003366] text-white p-1 px-2 flex items-center justify-center rounded-sm text-xs">2.1</span> 
@@ -249,7 +265,9 @@ export function PrintableReport({ course }: Props) {
       {/* 3. Vagas e Ocupação */}
       <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">3</span> 
+          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">
+            {course.hasSinaes !== false ? '3' : '2'}
+          </span> 
           Distribuição de Vagas (Referência: 2025)
         </h3>
         <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
@@ -295,8 +313,10 @@ export function PrintableReport({ course }: Props) {
       {/* 4. Situação Acadêmica */}
       <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">4</span> 
-          Situação Acadêmica (Referência: 2025 - Núcleo Ciências Humanas)
+          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">
+            {course.hasSinaes !== false ? '4' : '3'}
+          </span> 
+          Situação Acadêmica (Referência: 2025 - {course.id === 'engenharia_fisica' ? 'NUCET – Ciências Exatas e Tecnológicas' : 'Núcleo Ciências Humanas'})
         </h3>
         
         <div className="grid grid-cols-3 gap-6 mb-6">
@@ -372,7 +392,9 @@ export function PrintableReport({ course }: Props) {
       {/* 5. Histórico do Curso */}
       <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">5</span> 
+          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">
+            {course.hasSinaes !== false ? '5' : '4'}
+          </span> 
           Histórico do Curso
         </h3>
         <div className="overflow-hidden rounded-lg border border-gray-300 avoid-break">
@@ -425,73 +447,77 @@ export function PrintableReport({ course }: Props) {
       </section>
 
       {/* 6. Histórico ENADE */}
-      <section className="mb-8 p-1">
-        <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">6</span> 
-          Evolução do Conceito ENADE
-        </h3>
-        
-        {course.enadeHistory.length > 0 ? (
-          <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto avoid-break">
-            <table className="w-full text-center text-sm border-collapse">
-              <thead>
-                <tr className="bg-gray-100 text-gray-800 font-semibold">
-                  {course.enadeHistory.map(h => (
-                    <th key={h.year} className="p-2 border-b border-r last:border-r-0 border-gray-300 font-medium">{h.year}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="text-gray-800 bg-white">
-                  {course.enadeHistory.map(h => (
-                    <td key={h.year} className={`p-3 border-r last:border-r-0 border-gray-200 font-bold text-lg ${getTextColor(h.conceito)}`}>
-                      {h.conceito}
-                    </td>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="p-4 bg-gray-50 italic text-sm text-gray-500 border border-gray-200 rounded-md">
-            Nenhum histórico de conceito ENADE disponível para o curso avaliado.
-          </div>
-        )}
-      </section>
-
-      {/* 7. Legenda e Metodologia */}
-      <section className="mt-10 pt-6 border-t-[3px] border-[#003366] shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200 avoid-break">
-        <h3 className="text-xs font-bold mb-3 uppercase tracking-wide text-[#003366] flex items-center gap-2">
-          <span className="bg-[#003366] text-white w-4 h-4 flex items-center justify-center rounded-sm text-[10px]">ℹ</span> 
-          Documentação de Apoio Metodológico
-        </h3>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs text-slate-700">
-          <div>
-            <ul className="space-y-3">
-              <li><strong className="text-gray-800 text-[13px]">ENADE:</strong> Avalia o rendimento dos concluintes em relação aos conteúdos previstos nas diretrizes do curso.</li>
-              <li><strong className="text-gray-800 text-[13px]">IDD:</strong> Indicador de Diferença entre Desempenhos. Mede o "valor agregado" acadêmico, cruzando a nota do ENEM (entrada) com o ENADE (saída).</li>
-              <li><strong className="text-gray-800 text-[13px]">CPC:</strong> Conceito Preliminar de Curso. Composto por 35% IDD, 30% Corpo Docente, 20% ENADE e 15% Questionário do Estudante.</li>
-            </ul>
-          </div>
-          <div>
-             <table className="w-full border-collapse border border-gray-200">
+      {course.hasSinaes !== false && (
+        <section className="mb-8 p-1">
+          <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
+            <span className="bg-[#003366] text-white w-5 h-5 flex items-center justify-center rounded-sm text-xs">6</span> 
+            Evolução do Conceito ENADE
+          </h3>
+          
+          {course.enadeHistory.length > 0 ? (
+            <div className="overflow-hidden rounded-lg border border-gray-300 w-full max-w-md mx-auto avoid-break">
+              <table className="w-full text-center text-sm border-collapse">
                 <thead>
-                    <tr className="bg-gray-100 text-gray-700">
-                        <th className="p-1.5 border-b border-gray-200 text-left font-semibold">Conceito Oficial (INEP)</th>
-                        <th className="p-1.5 border-b border-gray-200 text-right font-semibold">Faixa Contínua</th>
-                    </tr>
+                  <tr className="bg-gray-100 text-gray-800 font-semibold">
+                    {course.enadeHistory.map(h => (
+                      <th key={h.year} className="p-2 border-b border-r last:border-r-0 border-gray-300 font-medium">{h.year}</th>
+                    ))}
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr><td className="p-1.5 border-b border-gray-200 text-red-600 font-medium">1 - Não atende</td><td className="p-1.5 border-b border-gray-200 text-right">0 a 0,944</td></tr>
-                    <tr><td className="p-1.5 border-b border-gray-200 text-orange-500 font-medium">2 - Insuficiente</td><td className="p-1.5 border-b border-gray-200 text-right">0,945 a 1,944</td></tr>
-                    <tr className="bg-green-50"><td className="p-1.5 border-b border-gray-200 text-green-700 font-semibold">3 - Suficiente</td><td className="p-1.5 border-b border-gray-200 text-right font-medium">1,945 a 2,944</td></tr>
-                    <tr><td className="p-1.5 border-b border-gray-200 text-green-600 font-medium">4 - Bom</td><td className="p-1.5 border-b border-gray-200 text-right">2,945 a 3,944</td></tr>
-                    <tr><td className="p-1.5 text-green-800 font-medium">5 - Muito bom</td><td className="p-1.5 text-right">3,945 a 5,000</td></tr>
+                  <tr className="text-gray-800 bg-white">
+                    {course.enadeHistory.map(h => (
+                      <td key={h.year} className={`p-3 border-r last:border-r-0 border-gray-200 font-bold text-lg ${getTextColor(h.conceito)}`}>
+                        {h.conceito}
+                      </td>
+                    ))}
+                  </tr>
                 </tbody>
-            </table>
+              </table>
+            </div>
+          ) : (
+            <div className="p-4 bg-gray-50 italic text-sm text-gray-500 border border-gray-200 rounded-md">
+              Nenhum histórico de conceito ENADE disponível para o curso avaliado.
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* 7. Legenda e Metodologia */}
+      {course.hasSinaes !== false && (
+        <section className="mt-10 pt-6 border-t-[3px] border-[#003366] shadow-sm print:shadow-none bg-slate-50 p-5 rounded-b-lg border-x border-b border-gray-200 avoid-break">
+          <h3 className="text-xs font-bold mb-3 uppercase tracking-wide text-[#003366] flex items-center gap-2">
+            <span className="bg-[#003366] text-white w-4 h-4 flex items-center justify-center rounded-sm text-[10px]">ℹ</span> 
+            Documentação de Apoio Metodológico
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-xs text-slate-700">
+            <div>
+              <ul className="space-y-3">
+                <li><strong className="text-gray-800 text-[13px]">ENADE:</strong> Avalia o rendimento dos concluintes em relação aos conteúdos previstos nas diretrizes do curso.</li>
+                <li><strong className="text-gray-800 text-[13px]">IDD:</strong> Indicador de Diferença entre Desempenhos. Mede o "valor agregado" acadêmico, cruzando a nota do ENEM (entrada) com o ENADE (saída).</li>
+                <li><strong className="text-gray-800 text-[13px]">CPC:</strong> Conceito Preliminar de Curso. Composto por 35% IDD, 30% Corpo Docente, 20% ENADE e 15% Questionário do Estudante.</li>
+              </ul>
+            </div>
+            <div>
+               <table className="w-full border-collapse border border-gray-200">
+                  <thead>
+                      <tr className="bg-gray-100 text-gray-700">
+                          <th className="p-1.5 border-b border-gray-200 text-left font-semibold">Conceito Oficial (INEP)</th>
+                          <th className="p-1.5 border-b border-gray-200 text-right font-semibold">Faixa Contínua</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr><td className="p-1.5 border-b border-gray-200 text-red-600 font-medium">1 - Não atende</td><td className="p-1.5 border-b border-gray-200 text-right">0 a 0,944</td></tr>
+                      <tr><td className="p-1.5 border-b border-gray-200 text-orange-500 font-medium">2 - Insuficiente</td><td className="p-1.5 border-b border-gray-200 text-right">0,945 a 1,944</td></tr>
+                      <tr className="bg-green-50"><td className="p-1.5 border-b border-gray-200 text-green-700 font-semibold">3 - Suficiente</td><td className="p-1.5 border-b border-gray-200 text-right font-medium">1,945 a 2,944</td></tr>
+                      <tr><td className="p-1.5 border-b border-gray-200 text-green-600 font-medium">4 - Bom</td><td className="p-1.5 border-b border-gray-200 text-right">2,945 a 3,944</td></tr>
+                      <tr><td className="p-1.5 text-green-800 font-medium">5 - Muito bom</td><td className="p-1.5 text-right">3,945 a 5,000</td></tr>
+                  </tbody>
+               </table>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <footer className="mt-8 text-center text-[10px] text-gray-400 italic">
         Documento gerado automaticamente pelo sistema de Indicadores de Ensino (SINAES/UEMS) para fins institucionais e tomada de decisão.
