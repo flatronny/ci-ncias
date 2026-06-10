@@ -55,11 +55,7 @@
     display: block !important;
     page-break-after: always !important; 
     break-after: page !important; 
-    min-height: 297mm !important;
-    height: 100% !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
-    padding: 1cm !important;
     position: relative !important;
   }
 

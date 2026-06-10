@@ -94,10 +94,7 @@ export function PrintableReport({ course }: Props) {
   return (
     <div className="bg-white text-gray-800 max-w-[21cm] mx-auto min-h-[29.7cm] shadow-xl my-8 print:shadow-none print:my-0 print:max-w-full font-sans print:border-none border border-gray-200 print:block">
       
-      {/* ======================================= */}
-      {/*                PÁGINA 1                 */}
-      {/* ======================================= */}
-      <div className="pagina-relatorio p-8 print:p-[1cm] border-t-8 border-t-[#003366] print:border-t-[8px] print:border-[#003366] print:border-x-0 print:border-b-0 bg-white">
+      <div className="p-8 print:p-8 border-t-8 border-t-[#003366] print:border-t-[8px] print:border-[#003366] print:border-x-0 print:border-b-0 bg-white">
         
         {/* Cabeçalho */}
       <div className="text-center mb-8 border-b-2 border-[#003366] pb-6">
@@ -256,12 +253,7 @@ export function PrintableReport({ course }: Props) {
           </div>
         </section>
       )}
-      </div> {/* FIM PÁGINA 1 */}
 
-      {/* ======================================= */}
-      {/*                PÁGINA 2                 */}
-      {/* ======================================= */}
-      <div className="pagina-relatorio p-8 print:p-[1cm] bg-white">
       {/* 3. Vagas e Ocupação */}
       <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
@@ -383,12 +375,7 @@ export function PrintableReport({ course }: Props) {
           </ResponsiveContainer>
         </div>
       </section>
-      </div> {/* FIM PÁGINA 2 */}
 
-      {/* ======================================= */}
-      {/*                PÁGINA 3                 */}
-      {/* ======================================= */}
-      <div className="pagina-relatorio p-8 print:p-[1cm] bg-white">
       {/* 5. Histórico do Curso */}
       <section className="mb-8 p-1">
         <h3 className="text-sm font-bold border-b-2 border-slate-300 text-[#003366] pb-1 mb-4 uppercase tracking-wide flex items-center gap-2">
@@ -522,7 +509,7 @@ export function PrintableReport({ course }: Props) {
       <footer className="mt-8 text-center text-[10px] text-gray-400 italic">
         Documento gerado automaticamente pelo sistema de Indicadores de Ensino (SINAES/UEMS) para fins institucionais e tomada de decisão.
       </footer>
-      </div> {/* FIM PÁGINA 3 */}
+      </div>
     </div>
   );
 }
